@@ -64,25 +64,25 @@ sleep 1s
 
 ID=$(grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
 VERSION=$(grep -oP '(?<=^VERSION_ID=).+' /etc/os-release | tr -d '"')
-if [ "$ID" = "ubuntu" ]; then
-    case $VERSION in
-        20.04)
-            break
-            ;;
-        *)
-            echo "${bgred}${white}${bold}"
-            echo "Cipi requires Linux Ubuntu 20.04 LTS"
-            echo "${reset}"
-            exit 1;
-            break
-            ;;
-    esac
-else
-    echo "${bgred}${white}${bold}"
-    echo "Cipi requires Linux Ubuntu 20.04 LTS"
-    echo "${reset}"
-    exit 1
-fi
+# if [ "$ID" = "ubuntu" ]; then
+#     case $VERSION in
+#         20.04)
+#             break
+#             ;;
+#         *)
+#             echo "${bgred}${white}${bold}"
+#             echo "Cipi requires Linux Ubuntu 20.04 LTS"
+#             echo "${reset}"
+#             exit 1;
+#             break
+#             ;;
+#     esac
+# else
+#     echo "${bgred}${white}${bold}"
+#     echo "Cipi requires Linux Ubuntu 20.04 LTS"
+#     echo "${reset}"
+#     exit 1
+# fi
 
 
 
@@ -136,19 +136,19 @@ echo "Motd settings..."
 echo "${reset}"
 sleep 1s
 
-WELCOME=/etc/motd
-sudo touch $WELCOME
-sudo cat > "$WELCOME" <<EOF
+# WELCOME=/etc/motd
+# sudo touch $WELCOME
+# sudo cat > "$WELCOME" <<EOF
 
- ██████ ██ ██████  ██ 
-██      ██ ██   ██ ██ 
-██      ██ ██████  ██ 
-██      ██ ██      ██
- ██████ ██ ██      ██
+#  ██████ ██ ██████  ██ 
+# ██      ██ ██   ██ ██ 
+# ██      ██ ██████  ██ 
+# ██      ██ ██      ██
+#  ██████ ██ ██      ██
 
-With great power comes great responsibility...
+# With great power comes great responsibility...
 
-EOF
+# EOF
 
 
 
