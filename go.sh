@@ -5,7 +5,7 @@ BUILD=202112181
 PASS=$(openssl rand -base64 32|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
 DBPASS=$(openssl rand -base64 24|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
 SERVERID=$(openssl rand -base64 12|sha256sum|base64|head -c 32| tr '[:upper:]' '[:lower:]')
-REPO=andreapollastri/cipi
+REPO=BuyProject/cipi
 if [ -z "$1" ];
     BRANCH=latest
 then
@@ -262,6 +262,38 @@ sleep 1s
 
 sudo add-apt-repository -y ppa:ondrej/php
 sudo apt-get update
+
+sudo apt-get -y install php7.2-fpm
+sudo apt-get -y install php7.2-common
+sudo apt-get -y install php7.2-curl
+sudo apt-get -y install php7.2-openssl
+sudo apt-get -y install php7.2-bcmath
+sudo apt-get -y install php7.2-mbstring
+sudo apt-get -y install php7.2-tokenizer
+sudo apt-get -y install php7.2-mysql
+sudo apt-get -y install php7.2-sqlite3
+sudo apt-get -y install php7.2-pgsql
+sudo apt-get -y install php7.2-redis
+sudo apt-get -y install php7.2-memcached
+sudo apt-get -y install php7.2-json
+sudo apt-get -y install php7.2-zip
+sudo apt-get -y install php7.2-xml
+sudo apt-get -y install php7.2-soap
+sudo apt-get -y install php7.2-gd
+sudo apt-get -y install php7.2-imagick
+sudo apt-get -y install php7.2-fileinfo
+sudo apt-get -y install php7.2-imap
+sudo apt-get -y install php7.2-cli
+PHPINI=/etc/php/7.2/fpm/conf.d/cipi.ini
+sudo touch $PHPINI
+sudo cat > "$PHPINI" <<EOF
+memory_limit = 256M
+upload_max_filesize = 256M
+post_max_size = 256M
+max_execution_time = 180
+max_input_time = 180
+EOF
+sudo service php7.2-fpm restart
 
 sudo apt-get -y install php7.4-fpm
 sudo apt-get -y install php7.4-common

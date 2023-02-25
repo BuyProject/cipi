@@ -2,7 +2,7 @@
 
 
 @section('title')
-    {{ __('cipi.titles.site') }}
+{{ __('cipi.titles.site') }}
 @endsection
 
 
@@ -100,10 +100,10 @@
                 </div>
                 <p>
                     {{ __('cipi.github_repository_deploy') }}:
-                    <ul style="font-size:14px;">
-                        <li>ssh <span id="repodeployinfouser1"></span>@<span id="repodeployinfoip"></span></li>
-                        <li>sh /home/<span id="repodeployinfouser2"></span>/git/deploy.sh</li>
-                    </ul>
+                <ul style="font-size:14px;">
+                    <li>ssh <span id="repodeployinfouser1"></span>@<span id="repodeployinfoip"></span></li>
+                    <li>sh /home/<span id="repodeployinfouser2"></span>/git/deploy.sh</li>
+                </ul>
                 </p>
             </div>
         </div>
@@ -121,6 +121,7 @@
                         <option value="8.1" id="php81">8.1</option>
                         <option value="8.0" id="php80">8.0</option>
                         <option value="7.4" id="php74">7.4</option>
+                        <option value="7.2" id="php72">7.2</option>
                     </select>
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="button" id="sitephpversubmit"><i class="fas fa-edit"></i></button>
@@ -153,7 +154,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="repositoryModalLabel">{{ __('cipi.github_repository') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -185,7 +186,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="deployModalLabel">{{ __('cipi.deploy_scripts') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -206,7 +207,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="sshresetModalLabel">{{ __('cipi.require_password_reset_modal_title') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -226,7 +227,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="mysqlresetModalLabel">{{ __('cipi.require_password_reset_modal_title') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -267,7 +268,7 @@
                 $('#sitephp').html(data.php);
                 $('#sitebasepathinfo').html(data.basepath);
                 $('#siteuserinfo').html(data.username);
-                $('#maintitle').html('- '+data.domain);
+                $('#maintitle').html('- ' + data.domain);
                 $('#sitedomain').val(data.domain);
                 $('#sitebasepath').val(data.basepath);
                 $('#currentdomain').val(data.domain);
@@ -280,20 +281,23 @@
                 $('#repositoryproject').val(data.repository);
                 $('#repositorybranch').val(data.branch);
                 deploy.session.setValue(data.deploy);
-                getDataNoDT('/api/servers/'+data.server_id+'/domains');
+                getDataNoDT('/api/servers/' + data.server_id + '/domains');
                 switch (data.php) {
                     case '8.1':
-                        $('#php81').attr("selected","selected");
+                        $('#php81').attr("selected", "selected");
                         break;
                     case '8.0':
-                        $('#php80').attr("selected","selected");
+                        $('#php80').attr("selected", "selected");
                         break;
                     case '7.4':
-                        $('#php74').attr("selected","selected");
+                        $('#php74').attr("selected", "selected");
                         break;
                     case '7.3':
                         // Append legacy php 7.3
                         $('#phpver').append('<option value="7.3" selected>7.3</option>');
+                        break;
+                    case '7.2':
+                        $('#php72').attr("selected", "selected");
                         break;
                     default:
                         break;
@@ -305,13 +309,13 @@
             type: 'GET',
             success: function(data) {
                 $('#sitealiaseslist').empty();
-                jQuery(data).each(function(i, item){
-                    $('#sitealiaseslist').append('<span class="badge badge-info mr-2 ml-2">'+item.domain+'<i data-id="'+item.alias_id+'" style="cursor:pointer" class="sitealiasdel fas fa-times fs-fw ml-2"></i></span>');
+                jQuery(data).each(function(i, item) {
+                    $('#sitealiaseslist').append('<span class="badge badge-info mr-2 ml-2">' + item.domain + '<i data-id="' + item.alias_id + '" style="cursor:pointer" class="sitealiasdel fas fa-times fs-fw ml-2"></i></span>');
                 });
             },
         });
     }
-    $(document).ajaxSuccess(function(){
+    $(document).ajaxSuccess(function() {
         aliasesDelete();
     });
 
@@ -330,7 +334,9 @@
                 $('#sshresetloading').removeClass('d-none');
             },
             success: function(data) {
-                success('{{ __('cipi.new_ssh_password_success') }}:<br><b>'+data.password+'</b><br><a href="'+data.pdf+'" target="_blank" style="color:#ffffff">{{ __('cipi.download_site_data') }}</a>');
+                success('{{ __('
+                    cipi.new_ssh_password_success ') }}:<br><b>' + data.password + '</b><br><a href="' + data.pdf + '" target="_blank" style="color:#ffffff">{{ __('
+                    cipi.download_site_data ') }}</a>');
                 $('#sshresetloading').addClass('d-none');
                 $('#sshresetModal').modal('toggle');
                 $(window).scrollTop(0);
@@ -350,7 +356,9 @@
                 $('#mysqlresetloading').removeClass('d-none');
             },
             success: function(data) {
-                success('{{ __('cipi.new_mysql_password_success') }}:<br><b>'+data.password+'</b><br><a href="'+data.pdf+'" target="_blank" style="color:#ffffff">{{ __('cipi.download_site_data') }}</a>');
+                success('{{ __('
+                    cipi.new_mysql_password_success ') }}:<br><b>' + data.password + '</b><br><a href="' + data.pdf + '" target="_blank" style="color:#ffffff">{{ __('
+                    cipi.download_site_data ') }}</a>');
                 $('#mysqlresetloading').addClass('d-none');
                 $('#mysqlresetModal').modal('toggle');
                 $(window).scrollTop(0);
@@ -401,7 +409,7 @@
     });
 
     //Deploy Key Copy
-    $("#copykey").click(function(){
+    $("#copykey").click(function() {
         $("#deploykey").select();
         document.execCommand('copy');
     });
@@ -442,7 +450,7 @@
     function domainConflict(domain) {
         conflict = 0;
         JSON.parse(localStorage.otherdata).forEach(item => {
-            if(item == domain) {
+            if (item == domain) {
                 conflict = conflict + 1;
             }
         });
@@ -455,7 +463,7 @@
         $('#siteaddalias').removeClass('is-invalid');
     });
     $('#siteaddaliassubmit').click(function() {
-        if(domainConflict($('#siteaddalias').val()) < 1 && $('#siteaddalias').val() != '') {
+        if (domainConflict($('#siteaddalias').val()) < 1 && $('#siteaddalias').val() != '') {
             $.ajax({
                 url: '/api/sites/{{ $site_id }}/aliases',
                 type: 'POST',
@@ -483,7 +491,7 @@
     function aliasesDelete() {
         $(".sitealiasdel").on("click", function() {
             $.ajax({
-                url: '/api/sites/{{ $site_id }}/aliases/'+$(this).attr('data-id'),
+                url: '/api/sites/{{ $site_id }}/aliases/' + $(this).attr('data-id'),
                 type: 'DELETE',
                 success: function(data) {
                     $('#mainloading').removeClass('d-none');
