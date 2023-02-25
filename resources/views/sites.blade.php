@@ -66,6 +66,7 @@
                             <option value="8.1">8.1</option>
                             <option value="8.0" selected>8.0</option>
                             <option value="7.4">7.4</option>
+                            <option value="7.3">7.3</option>
                             <option value="7.2">7.2</option>
                         </select>
                     </div>
