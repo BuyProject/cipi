@@ -7,7 +7,7 @@ BUILD=202112181
 PASS=???
 DBPASS=???
 SERVERID=???
-REPO=andreapollastri/cipi
+REPO=BuyProject/cipi
 
 
 ####################################################   CLI TOOLS   ###
@@ -251,6 +251,70 @@ sleep 1s
 
 sudo add-apt-repository -y ppa:ondrej/php
 sudo apt-get update
+
+sudo apt-get -y install php7.2-fpm
+sudo apt-get -y install php7.2-common
+sudo apt-get -y install php7.2-curl
+sudo apt-get -y install php7.2-openssl
+sudo apt-get -y install php7.2-bcmath
+sudo apt-get -y install php7.2-mbstring
+sudo apt-get -y install php7.2-tokenizer
+sudo apt-get -y install php7.2-mysql
+sudo apt-get -y install php7.2-sqlite3
+sudo apt-get -y install php7.2-pgsql
+sudo apt-get -y install php7.2-redis
+sudo apt-get -y install php7.2-memcached
+sudo apt-get -y install php7.2-json
+sudo apt-get -y install php7.2-zip
+sudo apt-get -y install php7.2-xml
+sudo apt-get -y install php7.2-soap
+sudo apt-get -y install php7.2-gd
+sudo apt-get -y install php7.2-imagick
+sudo apt-get -y install php7.2-fileinfo
+sudo apt-get -y install php7.2-imap
+sudo apt-get -y install php7.2-cli
+PHPINI=/etc/php/7.2/fpm/conf.d/cipi.ini
+sudo touch $PHPINI
+sudo cat > "$PHPINI" <<EOF
+memory_limit = 256M
+upload_max_filesize = 256M
+post_max_size = 256M
+max_execution_time = 180
+max_input_time = 180
+EOF
+sudo service php7.2-fpm restart
+
+sudo apt-get -y install php7.3-fpm
+sudo apt-get -y install php7.3-common
+sudo apt-get -y install php7.3-curl
+sudo apt-get -y install php7.3-openssl
+sudo apt-get -y install php7.3-bcmath
+sudo apt-get -y install php7.3-mbstring
+sudo apt-get -y install php7.3-tokenizer
+sudo apt-get -y install php7.3-mysql
+sudo apt-get -y install php7.3-sqlite3
+sudo apt-get -y install php7.3-pgsql
+sudo apt-get -y install php7.3-redis
+sudo apt-get -y install php7.3-memcached
+sudo apt-get -y install php7.3-json
+sudo apt-get -y install php7.3-zip
+sudo apt-get -y install php7.3-xml
+sudo apt-get -y install php7.3-soap
+sudo apt-get -y install php7.3-gd
+sudo apt-get -y install php7.3-imagick
+sudo apt-get -y install php7.3-fileinfo
+sudo apt-get -y install php7.3-imap
+sudo apt-get -y install php7.3-cli
+PHPINI=/etc/php/7.3/fpm/conf.d/cipi.ini
+sudo touch $PHPINI
+sudo cat > "$PHPINI" <<EOF
+memory_limit = 256M
+upload_max_filesize = 256M
+post_max_size = 256M
+max_execution_time = 180
+max_input_time = 180
+EOF
+sudo service php7.3-fpm restart
 
 sudo apt-get -y install php7.4-fpm
 sudo apt-get -y install php7.4-common
@@ -573,7 +637,7 @@ sudo rpl -i -w "# PasswordAuthentication" "PasswordAuthentication" /etc/ssh/sshd
 sudo rpl -i -w "PasswordAuthentication no" "PasswordAuthentication yes" /etc/ssh/sshd_config
 sudo rpl -i -w "PermitRootLogin yes" "PermitRootLogin no" /etc/ssh/sshd_config
 sudo service sshd restart
-wget -P /var/www/html/ - https://raw.githubusercontent.com/$REPO/latest/utility/zero-page/index.php
+wget -P /var/www/html/ - https://raw.githubusercontent.com/$REPO/master/utility/zero-page/index.php
 CIPIBULD=/var/www/html/build_$SERVERID.php
 sudo touch $CIPIBULD
 sudo cat > "$CIPIBULD" <<EOF
