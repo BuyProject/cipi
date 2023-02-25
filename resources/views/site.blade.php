@@ -334,7 +334,7 @@
                 $('#sshresetloading').removeClass('d-none');
             },
             success: function(data) {
-                success('{{ __('cipi.new_ssh_password_success') }}:<br><b>' + data.password + '</b><br><a href="' + data.pdf + '" target="_blank" style="color:#ffffff">{{ __('cipi.download_site_data') }}</a>');
+                success('<?= __('cipi.new_ssh_password_success') ?>:<br><b>' + data.password + '</b><br><a href="' + data.pdf + '" target="_blank" style="color:#ffffff"><?= __('cipi.download_site_data') ?></a>');
                 $('#sshresetloading').addClass('d-none');
                 $('#sshresetModal').modal('toggle');
                 $(window).scrollTop(0);
@@ -354,7 +354,7 @@
                 $('#mysqlresetloading').removeClass('d-none');
             },
             success: function(data) {
-                success('{{ __('cipi.new_mysql_password_success') }}:<br><b>' + data.password + '</b><br><a href="' + data.pdf + '" target="_blank" style="color:#ffffff">{{ __('cipi.download_site_data') }}</a>');
+                success('<?= __('cipi.new_mysql_password_success') ?>:<br><b>' + data.password + '</b><br><a href="' + data.pdf + '" target="_blank" style="color:#ffffff"><?= __('cipi.download_site_data ') ?></a>');
                 $('#mysqlresetloading').addClass('d-none');
                 $('#mysqlresetModal').modal('toggle');
                 $(window).scrollTop(0);
