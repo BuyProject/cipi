@@ -124,6 +124,8 @@
                         <option value="8.1" id="php81">8.1</option>
                         <option value="8.0" id="php80">8.0</option>
                         <option value="7.4" id="php74">7.4</option>
+                        <option value="7.3" id="php73">7.3</option>
+                        <option value="7.2" id="php74">7.2</option>
                     </select>
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="button" id="changephp"><i class="fas fa-edit"></i></button>
@@ -301,8 +303,10 @@
                         $('#php74').attr("selected","selected");
                         break;
                     case '7.3':
-                        // Append legacy php 7.3
-                        $('#phpver').append('<option value="7.3" selected>7.3</option>');
+                        $('#php73').attr("selected","selected");
+                        break;
+                    case '7.2':
+                        $('#php72').attr("selected","selected");
                         break;
                     default:
                         break;
