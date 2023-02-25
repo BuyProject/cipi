@@ -66,7 +66,7 @@ To correctly manage remote servers Cipi has to be on a public IP address (IPv4).
 
 ## Cipi LEMP environment
 - nginx: 1.18
-- PHP-FPM: 8.1, 8.0, 7.4
+- PHP-FPM: 8.1, 8.0, 7.4, 7.3, 7.2
 - MySql: 8
 - node: 16
 - npm: 8
