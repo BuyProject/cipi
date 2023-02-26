@@ -9,12 +9,10 @@ use Tests\TestCase;
 
 class CipiTest extends TestCase
 {
-
     public function testShowLoginPage()
     {
         $response = $this->get('/login');
-        $response->assertSee('Cipi Control Panel');
+        $response->assertSee('BuyCloud CP');
         $response->assertStatus(200);
     }
-
 }

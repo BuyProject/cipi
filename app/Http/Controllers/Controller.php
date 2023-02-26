@@ -11,10 +11,10 @@ use Illuminate\Routing\Controller as BaseController;
  * @OA\Info(
  *      version="1.0",
  *      title="Cipi API Documentation",
- *      description="API Documentation for Cipi Control Panel"
+ *      description="API Documentation for BuyCloud CP"
  * )
  *
-*/
+ */
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;

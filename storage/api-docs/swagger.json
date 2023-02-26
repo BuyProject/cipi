@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Cipi API Documentation",
-        "description": "API Documentation for Cipi Control Panel",
+        "description": "API Documentation for BuyCloud CP",
         "version": "1.0"
     },
     "paths": {

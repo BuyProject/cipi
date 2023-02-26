@@ -39,7 +39,7 @@ class ActiveSetupCount extends Command
     {
         sleep(rand(0, 9));
 
-        // Useful to daily count how many Cipi Control Panel installations are active
+        // Useful to daily count how many BuyCloud CP installations are active
         // around the world and show the total value into cipi.sh official website
         try {
             file_get_contents(config('cipi.activesetupcount'));
