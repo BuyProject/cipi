@@ -37,22 +37,23 @@ class EditSiteBasepathSSH implements ShouldQueue
     public function handle()
     {
         if ($this->oldbasepath) {
-            $oldbasepath = '/home/'.$this->site->username.'/web/'.$this->oldbasepath;
+            $oldbasepath = '/home/' . $this->site->username . '/web/' . $this->oldbasepath;
         } else {
-            $oldbasepath = '/home/'.$this->site->username.'/web';
+            $oldbasepath = '/home/' . $this->site->username . '/web';
         }
 
         if ($this->site->basepath) {
-            $basepath = '/home/'.$this->site->username.'/web/'.$this->site->basepath;
+            $basepath = '/home/' . $this->site->username . '/web/' . $this->site->basepath;
         } else {
-            $basepath = '/home/'.$this->site->username.'/web';
+            $basepath = '/home/' . $this->site->username . '/web';
         }
 
         $ssh = new SSH2($this->site->server->ip, 22);
         $ssh->login('cipi', $this->site->server->password);
         $ssh->setTimeout(360);
-        $ssh->exec('echo '.$this->site->server->password.' | sudo -S sudo rpl -i -w "root '.$oldbasepath.'" "root '.$basepath.'" /etc/nginx/sites-available/'.$this->site->username.'.conf');
-        $ssh->exec('echo '.$this->site->server->password.' | sudo -S sudo systemctl restart nginx.service');
+        $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo rpl -i -w "root ' . $oldbasepath . '" "root ' . $basepath . '" /etc/nginx/sites-available/' . $this->site->username . '.conf');
+        $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo rpl -i -w "root ' . $oldbasepath . '" "root ' . $basepath . '" /etc/nginx/sites-enabled/' . $this->site->username . '.conf');
+        $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo systemctl restart nginx.service');
         $ssh->exec('exit');
     }
 }
