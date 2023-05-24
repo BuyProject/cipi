@@ -52,7 +52,7 @@ class EditSiteBasepathSSH implements ShouldQueue
         $ssh->login('cipi', $this->site->server->password);
         $ssh->setTimeout(360);
         $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo rpl -i -w "root ' . $oldbasepath . '" "root ' . $basepath . '" /etc/nginx/sites-available/' . $this->site->username . '.conf');
-        $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo rpl -i -w "root ' . $oldbasepath . '" "root ' . $basepath . '" /etc/nginx/sites-enabled/' . $this->site->username . '.conf');
+        // $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo rpl -i -w "root ' . $oldbasepath . '" "root ' . $basepath . '" /etc/nginx/sites-enabled/' . $this->site->username . '.conf');
         $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo systemctl restart nginx.service');
         $ssh->exec('exit');
     }

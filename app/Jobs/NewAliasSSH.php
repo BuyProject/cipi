@@ -38,11 +38,11 @@ class NewAliasSSH implements ShouldQueue
         $ssh = new SSH2($this->site->server->ip, 22);
         $ssh->login('cipi', $this->site->server->password);
         $ssh->setTimeout(360);
-        $ssh->exec('echo '.$this->site->server->password.' | sudo -S sudo wget '.config('app.url').'/conf/alias/'.$this->alias->alias_id.' -O /etc/nginx/sites-available/'.$this->alias->domain.'.conf');
-        $ssh->exec('echo '.$this->site->server->password.' | sudo -S sudo dos2unix /etc/nginx/sites-available/'.$this->alias->domain.'.conf');
-        $ssh->exec('echo '.$this->site->server->password.' | sudo -S sudo ln -s /etc/nginx/sites-available/'.$this->alias->domain.'.conf /etc/nginx/sites-enabled/'.$this->alias->domain.'.conf');
-        $ssh->exec('echo '.$this->site->server->password.' | sudo -S sudo service php'.$this->site->php.'-fpm restart');
-        $ssh->exec('echo '.$this->site->server->password.' | sudo -S sudo systemctl restart nginx.service');
+        $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo wget ' . config('app.url') . '/conf/alias/' . $this->alias->alias_id . ' -O /etc/nginx/sites-available/' . $this->alias->domain . '.conf');
+        $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo dos2unix /etc/nginx/sites-available/' . $this->alias->domain . '.conf');
+        // $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo ln -s /etc/nginx/sites-available/' . $this->alias->domain . '.conf /etc/nginx/sites-enabled/' . $this->alias->domain . '.conf');
+        $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo service php' . $this->site->php . '-fpm restart');
+        $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo systemctl restart nginx.service');
         $ssh->exec('exit');
     }
 }
