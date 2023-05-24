@@ -43,7 +43,7 @@ class DeleteSiteSSH implements ShouldQueue
         $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo unlink delsite');
         if ($this->site->aliases) {
             foreach ($this->site->aliases as $alias) {
-                // $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo unlink /etc/nginx/sites-enabled/' . $alias->domain . '.conf');
+                $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo unlink /etc/nginx/sites-enabled/' . $alias->domain . '.conf');
                 $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo unlink /etc/nginx/sites-available/' . $alias->domain . '.conf');
             }
         }
