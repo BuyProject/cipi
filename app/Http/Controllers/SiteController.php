@@ -110,7 +110,7 @@ class SiteController extends Controller
      *          description="Unauthorized access error"
      *      )
      * )
-    */
+     */
     public function index()
     {
         $sites = Site::where('panel', false)->get();
@@ -289,7 +289,7 @@ class SiteController extends Controller
      *          description="SSH server connection issue"
      *      )
      * )
-    */
+     */
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -343,7 +343,7 @@ class SiteController extends Controller
             ], 409);
         }
 
-        $pdftoken = JWT::encode(['iat' => time(),'exp' => time() + 180], config('cipi.jwt_secret').'-Pdf');
+        $pdftoken = JWT::encode(['iat' => time(), 'exp' => time() + 180], config('cipi.jwt_secret') . '-Pdf');
 
         $site_id = Str::uuid();
 
@@ -353,28 +353,28 @@ class SiteController extends Controller
         $site->domain     = strtolower($request->domain);
         $site->php        = $php;
         $site->basepath   = $request->basepath;
-        $site->username   = config('cipi.users_prefix').hash('crc32', (Str::uuid()->toString())).rand(1, 9);
+        $site->username   = config('cipi.users_prefix') . hash('crc32', (Str::uuid()->toString())) . rand(1, 9);
         $site->password   = Str::random(24);
         $site->database   = Str::random(24);
         $site->deploy     = ' ';
         $site->save();
 
-        NewSiteSSH::dispatch($server, $site)->delay(Carbon::now()->addSeconds(3));
+        NewSiteSSH::dispatch($server, $site, 'WordPress')->delay(Carbon::now()->addSeconds(3));
 
         return response()->json([
-            'site_id'           => $site->site_id,
-            'domain'            => $site->domain,
-            'username'          => $site->username,
-            'password'          => $site->password,
-            'database'          => $site->username,
+            'site_id' => $site->site_id,
+            'domain' => $site->domain,
+            'username' => $site->username,
+            'password' => $site->password,
+            'database' => $site->username,
             'database_username' => $site->username,
             'database_password' => $site->database,
-            'server_id'         => $server->server_id,
-            'server_name'       => $server->name,
-            'server_ip'         => $server->ip,
-            'php'               => $site->php,
-            'basepath'          => $site->basepath,
-            'pdf'               => URL::to('/pdf/'.$site_id.'/'. $pdftoken)
+            'server_id' => $server->server_id,
+            'server_name' => $server->name,
+            'server_ip' => $server->ip,
+            'php' => $site->php,
+            'basepath' => $site->basepath,
+            'pdf' => URL::to('/pdf/' . $site_id . '/' . $pdftoken)
         ]);
     }
 
@@ -565,7 +565,7 @@ class SiteController extends Controller
      *          description="Site domain conflict"
      *      ),
      * )
-    */
+     */
     public function edit(Request $request, string $site_id)
     {
         $site = Site::where('site_id', $site_id)->first();
@@ -838,7 +838,7 @@ class SiteController extends Controller
      *          description="SSH server connection issue"
      *      )
      * )
-    */
+     */
     public function show(string $site_id)
     {
         $site = Site::where('site_id', $site_id)->first();
@@ -912,7 +912,7 @@ class SiteController extends Controller
      *          description="Unauthorized access error"
      *      )
      * )
-    */
+     */
     public function destroy(string $site_id)
     {
         $site = Site::where('site_id', $site_id)->first();
@@ -972,7 +972,7 @@ class SiteController extends Controller
      *          description="Unauthorized access error"
      *      )
      * )
-    */
+     */
     public function ssl(string $site_id)
     {
         $site = Site::where('site_id', $site_id)->first();
@@ -1040,7 +1040,7 @@ class SiteController extends Controller
      *          description="Unauthorized access error"
      *      )
      * )
-    */
+     */
     public function resetssh(string $site_id)
     {
         $site = Site::where('site_id', $site_id)->first();
@@ -1059,11 +1059,11 @@ class SiteController extends Controller
 
         SiteUserPwdSSH::dispatch($site, $newpassword)->delay(Carbon::now()->addSeconds(1));
 
-        $pdftoken = JWT::encode(['iat' => time(),'exp' => time() + 180], config('cipi.jwt_secret').'-Pdf');
+        $pdftoken = JWT::encode(['iat' => time(), 'exp' => time() + 180], config('cipi.jwt_secret') . '-Pdf');
 
         return response()->json([
             'password'  => $site->password,
-            'pdf'       => URL::to('/pdf/'.$site->site_id.'/'. $pdftoken)
+            'pdf'       => URL::to('/pdf/' . $site->site_id . '/' . $pdftoken)
         ]);
     }
 
@@ -1117,7 +1117,7 @@ class SiteController extends Controller
      *          description="Unauthorized access error"
      *      )
      * )
-    */
+     */
     public function resetdb(string $site_id)
     {
         $site = Site::where('site_id', $site_id)->first();
@@ -1136,11 +1136,11 @@ class SiteController extends Controller
 
         SiteDbPwdSSH::dispatch($site, $last_password)->delay(Carbon::now()->addSeconds(1));
 
-        $pdftoken = JWT::encode(['iat' => time(),'exp' => time() + 180], config('cipi.jwt_secret').'-Pdf');
+        $pdftoken = JWT::encode(['iat' => time(), 'exp' => time() + 180], config('cipi.jwt_secret') . '-Pdf');
 
         return response()->json([
             'password'  => $site->database,
-            'pdf'       => URL::to('/pdf/'.$site->site_id.'/'. $pdftoken)
+            'pdf'       => URL::to('/pdf/' . $site->site_id . '/' . $pdftoken)
         ]);
     }
 
@@ -1148,7 +1148,7 @@ class SiteController extends Controller
     public function pdf(string $site_id, string $pdftoken)
     {
         try {
-            JWT::decode($pdftoken, config('cipi.jwt_secret').'-Pdf', ['HS256']);
+            JWT::decode($pdftoken, config('cipi.jwt_secret') . '-Pdf', ['HS256']);
         } catch (\Throwable $th) {
             abort(403);
         }
@@ -1167,7 +1167,7 @@ class SiteController extends Controller
 
         $pdf = PDF::loadView('pdf', $data);
 
-        return $pdf->download($site->username.'_'.date('YmdHi').'_'.date('s').'.pdf');
+        return $pdf->download($site->username . '_' . date('YmdHi') . '_' . date('s') . '.pdf');
     }
 
     /**
@@ -1222,7 +1222,7 @@ class SiteController extends Controller
      *          description="Site not found"
      *      ),
      * )
-    */
+     */
     public function aliases(string $site_id)
     {
         $site = Site::where('site_id', $site_id)->first();
@@ -1304,7 +1304,7 @@ class SiteController extends Controller
      *          description="Site not found"
      *      ),
      * )
-    */
+     */
     public function createalias(Request $request, string $site_id)
     {
         $site = Site::where('site_id', $site_id)->first();
@@ -1354,7 +1354,7 @@ class SiteController extends Controller
         NewAliasSSH::dispatch($site, $alias)->delay(Carbon::now()->addSeconds(3));
 
         return response()->json([
-            'alias_id'=> $alias->alias_id,
+            'alias_id' => $alias->alias_id,
             'domain'  => $alias->domain
         ]);
     }
@@ -1402,7 +1402,7 @@ class SiteController extends Controller
      *          description="Resource not found"
      *      ),
      * )
-    */
+     */
     public function destroyalias(string $site_id, string $alias_id)
     {
         $site = Site::where('site_id', $site_id)->first();

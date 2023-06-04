@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 BASE_PATH=
+APP_INSTALL=
 USER_SHELL=/bin/bash
 
 while [ -n "$1" ] ; do
@@ -20,6 +21,10 @@ while [ -n "$1" ] ; do
     -b |  --base )
         shift
         BASE_PATH=$1
+        ;;
+    -app |  --application )
+        shift
+        APP_INSTALL=$1
         ;;
     -id |  --siteid )
         shift
@@ -54,14 +59,29 @@ mkdir /home/$USER_NAME/log
 
 if [ $BASE_PATH != "" ]; then
     mkdir /home/$USER_NAME/web/$BASE_PATH
-    WELCOME=/home/$USER_NAME/web/$BASE_PATH/index.php
+    FULL_PATH=/home/$USER_NAME/web/$BASE_PATH
+    # WELCOME=/home/$USER_NAME/web/$BASE_PATH/index.php
 else
-    WELCOME=/home/$USER_NAME/web/index.php
+    FULL_PATH=/home/$USER_NAME/web
+    # WELCOME=/home/$USER_NAME/web/index.php
 fi
-sudo touch $WELCOME
-sudo cat > "$WELCOME" <<EOF
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="robots" content="noindex, nofollow"> <meta name="googlebot" content="noindex"> <title>Coming Soon</title> <style>html{font-family: Arial, sans-serif; color: #000; font-size: 16px; font-weight: 400;}main{margin: 3rem 0 0 3rem;}h1, p{margin-top: 0; margin-bottom: 1.8rem;}h1{font-weight: 700; font-size: 4.5rem;}p{color: #7d7d7d; font-size: 1.75rem;}@media screen and (max-width: 768px){html{font-size: 12px;}main{margin: 3rem 0 0 3rem;}}</style></head><body><main><h1>Coming Soon</h1><p><script>document.write(window.location.hostname);</script></p></main></body></html>
-EOF
+
+if [ $APP_INSTALL == "WordPress" ]; then
+    wget -P /home/$USER_NAME https://wordpress.org/latest.zip
+    unzip /home/$USER_NAME/latest.zip -d $FULL_PATH;
+    mv /home/$USER_NAME/wordpress/* $FULL_PATH;
+    cp $FULL_PATH/wp-config-sample.php $FULL_PATH/wp-config.php
+
+    sed -i 's/database_name_here/'$DBPASS'/g' $FULL_PATH/wp-config.php
+    sed -i 's/username_here/'$DBPASS'/g' $FULL_PATH/wp-config.php
+    sed -i 's/password_here/'$DBPASS'/g' $FULL_PATH/wp-config.php
+    curl -k https://api.wordpress.org/secret-key/1.1/salt/ >> $FULL_PATH/wp-config.php
+fi
+
+# sudo touch $WELCOME
+# sudo cat > "$WELCOME" <<EOF
+# <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="robots" content="noindex, nofollow"> <meta name="googlebot" content="noindex"> <title>Coming Soon</title> <style>html{font-family: Arial, sans-serif; color: #000; font-size: 16px; font-weight: 400;}main{margin: 3rem 0 0 3rem;}h1, p{margin-top: 0; margin-bottom: 1.8rem;}h1{font-weight: 700; font-size: 4.5rem;}p{color: #7d7d7d; font-size: 1.75rem;}@media screen and (max-width: 768px){html{font-size: 12px;}main{margin: 3rem 0 0 3rem;}}</style></head><body><main><h1>Coming Soon</h1><p><script>document.write(window.location.hostname);</script></p></main></body></html>
+# EOF
 
 NGINX=/etc/nginx/sites-available/$USER_NAME.conf
 sudo wget $REMOTE/conf/host/$SITEID -O $NGINX
