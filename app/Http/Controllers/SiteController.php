@@ -359,7 +359,7 @@ class SiteController extends Controller
         $site->deploy     = ' ';
         $site->save();
 
-        NewSiteSSH::dispatch($server, $site, 'WordPress')->delay(Carbon::now()->addSeconds(3));
+        NewSiteSSH::dispatch($server, $site)->delay(Carbon::now()->addSeconds(3));
 
         return response()->json([
             'site_id' => $site->site_id,

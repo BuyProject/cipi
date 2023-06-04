@@ -66,17 +66,18 @@ else
     # WELCOME=/home/$USER_NAME/web/index.php
 fi
 
-if [ $APP_INSTALL == "WordPress" ]; then
-    wget -P /home/$USER_NAME https://wordpress.org/latest.zip
-    unzip /home/$USER_NAME/latest.zip -d $FULL_PATH;
-    mv /home/$USER_NAME/wordpress/* $FULL_PATH;
-    cp $FULL_PATH/wp-config-sample.php $FULL_PATH/wp-config.php
+wget -P /home/$USER_NAME https://wordpress.org/latest.zip
+unzip /home/$USER_NAME/latest.zip -d $FULL_PATH;
+mv /home/$USER_NAME/wordpress/* $FULL_PATH;
+cp $FULL_PATH/wp-config-sample.php $FULL_PATH/wp-config.php
 
-    sed -i 's/database_name_here/'$DBPASS'/g' $FULL_PATH/wp-config.php
-    sed -i 's/username_here/'$DBPASS'/g' $FULL_PATH/wp-config.php
-    sed -i 's/password_here/'$DBPASS'/g' $FULL_PATH/wp-config.php
-    curl -k https://api.wordpress.org/secret-key/1.1/salt/ >> $FULL_PATH/wp-config.php
-fi
+sed -i 's/database_name_here/'$USER_NAME'/g' $FULL_PATH/wp-config.php
+sed -i 's/username_here/'$USER_NAME'/g' $FULL_PATH/wp-config.php
+sed -i 's/password_here/'$DBPASS'/g' $FULL_PATH/wp-config.php
+curl -k https://api.wordpress.org/secret-key/1.1/salt/ >> $FULL_PATH/wp-config.php
+
+# if [ $APP_INSTALL == "WordPress" ]; then
+# fi
 
 # sudo touch $WELCOME
 # sudo cat > "$WELCOME" <<EOF
