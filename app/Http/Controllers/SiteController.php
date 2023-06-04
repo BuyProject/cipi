@@ -361,7 +361,8 @@ class SiteController extends Controller
         $site->save();
 
         NewSiteSSH::dispatch($server, $site)->delay(Carbon::now()->addSeconds(3));
-        InstallAppSSH::dispatch($server, $site)->delay(Carbon::now()->addSeconds(6));
+        SslSiteSSH::dispatch($site)->delay(Carbon::now()->addSeconds(6));
+        InstallAppSSH::dispatch($server, $site)->delay(Carbon::now()->addSeconds(9));
 
         return response()->json([
             'site_id' => $site->site_id,
