@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 BASE_PATH=
-APP_INSTALL=
 USER_SHELL=/bin/bash
 
 while [ -n "$1" ] ; do
@@ -21,10 +20,6 @@ while [ -n "$1" ] ; do
     -b |  --base )
         shift
         BASE_PATH=$1
-        ;;
-    -app |  --application )
-        shift
-        APP_INSTALL=$1
         ;;
     -id |  --siteid )
         shift
@@ -75,9 +70,6 @@ sed -i 's/database_name_here/'$USER_NAME'/g' $FULL_PATH/wp-config.php
 sed -i 's/username_here/'$USER_NAME'/g' $FULL_PATH/wp-config.php
 sed -i 's/password_here/'$DBPASS'/g' $FULL_PATH/wp-config.php
 curl -k https://api.wordpress.org/secret-key/1.1/salt/ >> $FULL_PATH/wp-config.php
-
-# if [ $APP_INSTALL == "WordPress" ]; then
-# fi
 
 # sudo touch $WELCOME
 # sudo cat > "$WELCOME" <<EOF
