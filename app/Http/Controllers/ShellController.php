@@ -103,7 +103,7 @@ class ShellController extends Controller
      */
     public function installApp()
     {
-        $script = Storage::get('cipi/app/cat_wordpress.sh');
+        $script = Storage::get('cipi/cat_wordpress.sh');
 
         return response($script)
             ->withHeaders(['Content-Type' => 'application/x-sh']);
