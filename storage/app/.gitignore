@@ -1,5 +1,7 @@
 *
 !cipi/
 !cipi/*
+!cipi/*/catalog
+!cipi/*/catalog/*
 !public/
 !.gitignore
