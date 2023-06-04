@@ -50,6 +50,6 @@ class DeleteSiteSSH implements ShouldQueue
         $ssh->exec('echo ' . $this->site->server->password . ' | sudo -S sudo systemctl restart nginx.service');
         $ssh->exec('exit');
 
-        // $this->site->delete();
+        $this->site->delete();
     }
 }
