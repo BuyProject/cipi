@@ -9,6 +9,7 @@ Route::get('/servers/rootreset', [ShellController::class, 'serversrootreset']);
 Route::get('/newsite', [ShellController::class, 'newsite']);
 Route::get('/delsite', [ShellController::class, 'delsite']);
 Route::get('/sitepass', [ShellController::class, 'sitepass']);
+Route::get('/installapp', [ShellController::class, 'installApp']);
 
 // Client Patch
 Route::get('/client-patch/202112091', [ShellController::class, 'patch202112091']);
