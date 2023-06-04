@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.16] - 2023-06-04
+- Bugfixed
+- Add WordPress Auto Install After Create Site
+
 (no unreleased versions)
 ## [3.1.15] - 2021-12-26
 
