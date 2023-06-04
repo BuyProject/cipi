@@ -22,6 +22,7 @@ use App\Jobs\EditSiteDomainSSH;
 use App\Jobs\EditSiteBasepathSSH;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\Jobs\EditSiteSupervisorSSH;
+use App\Jobs\InstallAppSSH;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
@@ -360,6 +361,7 @@ class SiteController extends Controller
         $site->save();
 
         NewSiteSSH::dispatch($server, $site)->delay(Carbon::now()->addSeconds(3));
+        InstallAppSSH::dispatch($server, $site)->delay(Carbon::now()->addSeconds(6));
 
         return response()->json([
             'site_id' => $site->site_id,

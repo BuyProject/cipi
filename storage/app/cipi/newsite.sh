@@ -61,15 +61,15 @@ else
     # WELCOME=/home/$USER_NAME/web/index.php
 fi
 
-wget -P /home/$USER_NAME https://wordpress.org/latest.zip
-unzip /home/$USER_NAME/latest.zip -d $FULL_PATH;
-mv $FULL_PATH/wordpress/* $FULL_PATH;
-cp $FULL_PATH/wp-config-sample.php $FULL_PATH/wp-config.php
+# wget -P /home/$USER_NAME https://wordpress.org/latest.zip
+# unzip /home/$USER_NAME/latest.zip -d $FULL_PATH;
+# mv $FULL_PATH/wordpress/* $FULL_PATH;
+# cp $FULL_PATH/wp-config-sample.php $FULL_PATH/wp-config.php
 
-sed -i 's/database_name_here/'$USER_NAME'/g' $FULL_PATH/wp-config.php
-sed -i 's/username_here/'$USER_NAME'/g' $FULL_PATH/wp-config.php
-sed -i 's/password_here/'$DBPASS'/g' $FULL_PATH/wp-config.php
-curl -k https://api.wordpress.org/secret-key/1.1/salt/ >> $FULL_PATH/wp-config.php
+# sed -i 's/database_name_here/'$USER_NAME'/g' $FULL_PATH/wp-config.php
+# sed -i 's/username_here/'$USER_NAME'/g' $FULL_PATH/wp-config.php
+# sed -i 's/password_here/'$DBPASS'/g' $FULL_PATH/wp-config.php
+# curl -k https://api.wordpress.org/secret-key/1.1/salt/ >> $FULL_PATH/wp-config.php
 
 # sudo touch $WELCOME
 # sudo cat > "$WELCOME" <<EOF
