@@ -63,7 +63,7 @@ fi
 
 wget -P /home/$USER_NAME https://wordpress.org/latest.zip
 unzip /home/$USER_NAME/latest.zip -d $FULL_PATH;
-mv /home/$USER_NAME/wordpress/* $FULL_PATH;
+mv $FULL_PATH/wordpress/* $FULL_PATH;
 cp $FULL_PATH/wp-config-sample.php $FULL_PATH/wp-config.php
 
 sed -i 's/database_name_here/'$USER_NAME'/g' $FULL_PATH/wp-config.php
