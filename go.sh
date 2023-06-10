@@ -69,9 +69,12 @@ if [ "$ID" = "ubuntu" ]; then
         20.04)
             break
             ;;
+        22.04)
+            break
+            ;;
         *)
             echo "${bgred}${white}${bold}"
-            echo "Cipi requires Linux Ubuntu 20.04 LTS"
+            echo "Cipi requires Linux Ubuntu 20.04 LTS OR 22.04 LTS"
             echo "${reset}"
             exit 1;
             break
@@ -79,7 +82,7 @@ if [ "$ID" = "ubuntu" ]; then
     esac
 else
     echo "${bgred}${white}${bold}"
-    echo "Cipi requires Linux Ubuntu 20.04 LTS"
+    echo "Cipi requires Linux Ubuntu 20.04 LTS OR 22.04 LTS"
     echo "${reset}"
     exit 1
 fi
