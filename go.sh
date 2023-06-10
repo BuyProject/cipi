@@ -107,7 +107,25 @@ else
     exit 1
 fi
 
+# Updating
+clear
+clear
+echo "${bggreen}${black}${bold}"
+echo "Updating..."
+echo "${reset}"
+sleep 1s
 
+sudo apt-get -y update
+
+# Upgrading
+clear
+clear
+echo "${bggreen}${black}${bold}"
+echo "Upgrading..."
+echo "${reset}"
+sleep 1s
+
+sudo apt-get -y upgrade
 
 # BASIC SETUP
 clear
@@ -117,9 +135,7 @@ echo "Base setup..."
 echo "${reset}"
 sleep 1s
 
-sudo apt-get update
 sudo apt-get -y install software-properties-common curl wget nano vim rpl sed zip unzip openssl expect dirmngr apt-transport-https lsb-release ca-certificates dnsutils dos2unix zsh htop ffmpeg
-
 
 # GET IP
 clear
@@ -133,26 +149,25 @@ IP=$(curl -s https://checkip.amazonaws.com)
 
 
 # MOTD WELCOME MESSAGE
-clear
-echo "${bggreen}${black}${bold}"
-echo "Motd settings..."
-echo "${reset}"
-sleep 1s
+# clear
+# echo "${bggreen}${black}${bold}"
+# echo "Motd settings..."
+# echo "${reset}"
+# sleep 1s
 
-WELCOME=/etc/motd
-sudo touch $WELCOME
-sudo cat > "$WELCOME" <<EOF
+# WELCOME=/etc/motd
+# sudo touch $WELCOME
+# sudo cat > "$WELCOME" <<EOF
 
- ██████ ██ ██████  ██ 
-██      ██ ██   ██ ██ 
-██      ██ ██████  ██ 
-██      ██ ██      ██
- ██████ ██ ██      ██
+#  ██████ ██ ██████  ██ 
+# ██      ██ ██   ██ ██ 
+# ██      ██ ██████  ██ 
+# ██      ██ ██      ██
+#  ██████ ██ ██      ██
 
-With great power comes great responsibility...
+# With great power comes great responsibility...
 
-EOF
-
+# EOF
 
 
 # SWAP
@@ -167,7 +182,6 @@ sudo /sbin/mkswap /var/swap.1
 sudo /sbin/swapon /var/swap.1
 
 
-
 # ALIAS
 clear
 echo "${bggreen}${black}${bold}"
@@ -177,7 +191,6 @@ sleep 1s
 
 shopt -s expand_aliases
 alias ll='ls -alF'
-
 
 
 # CIPI DIRS
@@ -191,7 +204,6 @@ sudo mkdir /etc/cipi/
 sudo chmod o-r /etc/cipi
 sudo mkdir /var/cipi/
 sudo chmod o-r /var/cipi
-
 
 
 # USER
